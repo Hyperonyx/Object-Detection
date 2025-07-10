@@ -1,0 +1,56 @@
+sequenceDiagram
+    participant User
+
+    participant ObjectDetectionGUI
+    participant ImageProcessor
+    participant OpenCV
+    participant Webcam
+
+    User->>ObjectDetectionGUI: Open application
+    activate ObjectDetectionGUI
+
+    User->>ObjectDetectionGUI: Click on "Detect Objects in Image"
+    activate ImageProcessor
+    ImageProcessor->>OpenCV: Request image file dialog
+    activate OpenCV
+    OpenCV->>User: Return selected image file
+    deactivate OpenCV
+    ObjectDetectionGUI->>ImageProcessor: Preprocess image
+    ImageProcessor->>ObjectDetectionGUI: Processed image
+    deactivate ImageProcessor
+    ObjectDetectionGUI->>OpenCV: Perform object detection
+    activate OpenCV
+    OpenCV->>ObjectDetectionGUI: Detected objects
+    deactivate OpenCV
+    ObjectDetectionGUI->>User: Display detected objects
+
+    User->>ObjectDetectionGUI: Click on "Detect Objects in Video"
+    activate ObjectDetectionGUI
+    ObjectDetectionGUI->>OpenCV: Request video file dialog
+    activate OpenCV
+    OpenCV->>User: Return selected video file
+    deactivate OpenCV
+    ObjectDetectionGUI->>OpenCV: Detect objects in video
+    activate OpenCV
+    loop Video Frames
+        OpenCV->>ObjectDetectionGUI: Detected objects in frame
+        ObjectDetectionGUI->>User: Display detected objects in frame
+    end
+    deactivate OpenCV
+
+    User->>ObjectDetectionGUI: Click on "Detect Objects in Webcam"
+    activate ObjectDetectionGUI
+    ObjectDetectionGUI->>Webcam: Request webcam feed
+    activate Webcam
+    Webcam->>ObjectDetectionGUI: Webcam feed
+    deactivate Webcam
+    ObjectDetectionGUI->>OpenCV: Detect objects in webcam feed
+    activate OpenCV
+    loop Video Frames
+        OpenCV->>ObjectDetectionGUI: Detected objects in frame
+        ObjectDetectionGUI->>User: Display detected objects in frame
+    end
+    deactivate OpenCV
+
+    User->>ObjectDetectionGUI: Close application
+    deactivate ObjectDetectionGUI
