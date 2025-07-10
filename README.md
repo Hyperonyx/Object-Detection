@@ -1,4 +1,5 @@
-# Object-Detection The objective of object detection is to identify all occurrences of objects belonging to known categories, such
+# Object-Detection 
+The objective of object detection is to identify all occurrences of objects belonging to known categories, such
 as people, cars, or faces, within an image. While paintings typically feature only a few instances of objects,
 they can appear across various positions and scales, necessitating comprehensive exploration. Each displayed
 image conveys specific information, ranging from the object's position, location, and scale to its spatial extent
